@@ -1,0 +1,104 @@
+menu "Application configuration"
+
+choice ESP_WIFI_MODE
+    prompt "AP or STA"
+    default ESP_WIFI_IS_STATION
+    help
+        Whether the esp32 is softAP or station.
+
+config ESP_WIFI_IS_SOFTAP
+    bool "SoftAP"
+config ESP_WIFI_IS_STATION
+    bool "Station"
+endchoice
+
+config ESP_WIFI_MODE_AP
+    bool
+    default y if ESP_WIFI_IS_SOFTAP
+    default n if ESP_WIFI_IS_STATION
+
+config ESP_WIFI_SSID
+    string "WiFi SSID"
+    default "yourssidname"
+    help
+	SSID (network name) for the example to connect to.
+
+config ESP_WIFI_PASSWORD
+    string "WiFi Password"
+    default "yourwifipassword"
+    help
+	WiFi password (WPA or WPA2) for the example to use.
+		
+config MAX_STA_CONN
+    int "Max STA conn"
+    default 4
+    help
+	Max number of the STA connects to AP.
+
+config RELAY_CONTROL
+    int "GPIO for relay control"
+    range 0 34
+    default 4
+    help
+        GPIO number for the relay control. The default is GPIO_NUM_4
+
+        Note that some GPIO pins have dedicated purposes and cannot be used.
+
+        GPIOs 35-39 are input-only and cannot be used for relay control.
+
+config I2C_SDA
+    int "I2C SDA GPIO"
+    range 0 34
+    default 21
+    help
+        GPIO number for the SDA signal of the I2C bus
+
+        Note that some GPIO pins have dedicated purposes and cannot be used.
+
+        GPIOs 35-39 are input-only and cannot be used for the I2C bus.
+
+config I2C_SCL
+    int "I2C SCL GPIO"
+    range 0 34
+    default 22
+    help
+        GPIO number for the SDA signal of the I2C bus
+
+        Note that some GPIO pins have dedicated purposes and cannot be used.
+
+        GPIOs 35-39 are input-only and cannot be used for the I2C bus.
+
+config TM1637_1_CLK
+    int "TM1637 1 CLK GPIO number"
+    range 0 34
+    default 26
+    help
+        GPIO number for the CLK (clock) of the 1st TM1637
+
+        Note that some GPIO pins have dedicated purposes and cannot be used.
+
+        GPIOs 35-39 are input-only and cannot be used for the TM1637.
+
+config TM1637_1_DIO
+    int "TM1637 1 DIO GPIO number"
+    range 0 34
+    default 27
+    help
+        GPIO number for the DIO (data) line of the 1st TM1637
+
+        Note that some GPIO pins have dedicated purposes and cannot be used.
+
+        GPIOs 35-39 are input-only and cannot be used for the TM1637.
+
+config ONE_WIRE_GPIO
+    int "OneWire GPIO number"
+    range 0 34
+    default 15
+    help
+        GPIO number (IOxx) to access One Wire Bus.
+
+        Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used.
+
+        GPIOs 35-39 are input-only so cannot be used to drive the One Wire Bus.
+
+endmenu
